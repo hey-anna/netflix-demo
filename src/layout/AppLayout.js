@@ -24,12 +24,13 @@ const AppLayout = () => {
         >
           <Navbar.Brand href="#">
             <img
-              src="https://logohistory.net/wp-content/uploads/2023/05/Netflix-Logo.png"
+              src="https://i.namu.wiki/i/VC4ybUEcyxjcNN9bbD94MSuC90nzQOrsa-ZKYd8ZCcbFW62IB2vvvP5hZxbdNPR2oms8avAsSQJXKCQ3L4rTpw.svg"
               width="100"
               height="30"
               className="d-inline-block align-top"
               alt="Netflix logo"
             />
+            {/* https://logohistory.net/wp-content/uploads/2023/05/Netflix-Logo.png */}
             {/* https://bi-jingo.com/wp-content/uploads/2009/03/netflix-logo-png-clip-art.png */}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
