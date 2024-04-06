@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import MoviePage from "./pages/Movies/MoviePage";
 import MovieDetailPage from "./pages/MovieDetail/MovieDetailPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import HomePage from "./pages/Homepage/Homepage";
 
 // 과제 리스트
