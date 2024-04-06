@@ -1,0 +1,23 @@
+/* 404 텍스트 옆에 로고 배치 */
+
+/* 스타일 사용안한 버리기 나중에 */
+.logo-side {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  width: 100px; /* 로고 이미지 크기 조정 */
+  margin-left: 20px;
+  filter: grayscale(100%) opacity(50%); /* 회색조 및 투명도 조정 */
+}
+
+/* 전체 배경으로 설정 */
+/* .body-background {
+  background-image: url("https://w7.pngwing.com/pngs/972/431/png-transparent-apps-media-netflix-logo-website-movie-series-multimedia-streaming-stream-3d-icon-thumbnail.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5; 
+} */
+
+/* 스타일 사용안한 버리기 나중에 E */
