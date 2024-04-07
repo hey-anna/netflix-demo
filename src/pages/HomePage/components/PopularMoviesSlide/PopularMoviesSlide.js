@@ -1,4 +1,5 @@
 import React from "react";
+import { Box, Stack, Typography, Container } from "@mui/material";
 import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
 import { Alert } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
@@ -41,8 +42,10 @@ const PopularMoviesSlide = () => {
     return <div>No data found.</div>;
   }
   return (
-    <div>
-      <h3>Popular Movies</h3>
+    <>
+      <Container maxWidth="lg">
+        <h3>Popular Movies</h3>
+      </Container>
       <Carousel
         infinite={true}
         centerMode={true}
@@ -71,7 +74,7 @@ const PopularMoviesSlide = () => {
         ))}
       </Carousel>
       ;
-    </div>
+    </>
   );
 };
 

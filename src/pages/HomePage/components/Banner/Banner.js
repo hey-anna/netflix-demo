@@ -2,6 +2,7 @@ import React from "react";
 import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
 import Alert from "react-bootstrap/Alert";
 import "./Banner.style.css";
+import { Container } from "@mui/material";
 
 const Banner = () => {
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
@@ -29,10 +30,10 @@ const Banner = () => {
           ")",
       }}
     >
-      <div className="text-white banner-text-area">
+      <Container maxWidth="lg" className="text-white banner-text-area">
         <h1>{datas[0].title}</h1>
         <p>{datas[0].overview}</p>
-      </div>
+      </Container>
     </div>
   );
 };
