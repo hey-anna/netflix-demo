@@ -1,0 +1,32 @@
+/* 배너 배경 */
+.banner-bg {
+  height: 56vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* 배너 배경 그라데이션 */
+.banner-bg:before {
+  content: "";
+  background: linear-gradient(to top, black, transparent);
+  position: absolute;
+  left: 0;
+  height: 56vh;
+  width: 100%;
+}
+
+/* 배너 텍스트 */
+.banner-text-area {
+  width: 36%;
+  dispaly: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem;
+}
+
+/* 배너 텍스트 > 야래 모든 아이템 */
+.banner-text-area > * {
+  z-index: 2;
+}
