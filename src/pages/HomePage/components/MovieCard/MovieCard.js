@@ -47,11 +47,26 @@ const MovieCard = ({ movie }) => {
     >
       <div className="overlay">
         <h3>{movie.title}</h3>
-        {movie.genre_ids.map((id) => (
+        <div
+          // className="badge-container"
+          style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}
+        >
+          {movie.genre_ids.map((id) => (
+            <Badge bg="danger" key={id}>
+              {genreMappings[id]}
+            </Badge>
+          ))}
+        </div>
+        {/* {movie.genre_ids.map((id) => (
+          <Box key={id} sx={{ marginRight: 1, display: "inline-block" }}>
+            <Badge bg="danger">{genreMappings[id]}</Badge>
+          </Box>
+        ))} */}
+        {/* {movie.genre_ids.map((id) => (
           <Badge bg="danger" key={id}>
             {genreMappings[id]}
           </Badge>
-        ))}
+        ))} */}
         <div>
           <Stack gap={1} sx={{ display: "flex", flexDirection: "row" }}>
             <img src={votebox} alt="" />
