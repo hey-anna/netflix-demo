@@ -5,7 +5,8 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Outlet, Link } from "react-router-dom"; // 리액트 V6  도입 // 리액트 안에 있는 자손들을 가져오게 해주는
-import netlogo from "../assets/images/netlogo.svg";
+// import netlogo from "../assets/images/netlogo.svg";
+// import logo from "../assets/images/logo.svg";
 
 const AppLayout = () => {
   return (
@@ -25,7 +26,8 @@ const AppLayout = () => {
         >
           <Navbar.Brand href="#">
             <img
-              src={netlogo}
+              // src={logo}
+              src="https://i.namu.wiki/i/VC4ybUEcyxjcNN9bbD94MSuC90nzQOrsa-ZKYd8ZCcbFW62IB2vvvP5hZxbdNPR2oms8avAsSQJXKCQ3L4rTpw.svg"
               width="100"
               height="30"
               className="d-inline-block align-top"
