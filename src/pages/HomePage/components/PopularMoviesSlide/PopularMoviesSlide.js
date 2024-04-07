@@ -4,6 +4,7 @@ import { Alert } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import MovieCard from "../MovieCard/MovieCard";
+import "./PopularMoviesSlide.style.css";
 
 const PopularMoviesSlide = () => {
   const { data, isLoding, isError, error } = usePopularMoviesQuery();
@@ -20,7 +21,7 @@ const PopularMoviesSlide = () => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 8,
+      items: 6,
       //   slidesToSlide: 3, // optional, default to 1.
     },
     tablet: {
@@ -34,6 +35,11 @@ const PopularMoviesSlide = () => {
       //   slidesToSlide: 1, // optional, default to 1.
     },
   };
+
+  const datas = data?.results;
+  if (!datas || datas.length === 0) {
+    return <div>No data found.</div>;
+  }
   return (
     <div>
       <h3>Popular Movies</h3>
@@ -60,7 +66,7 @@ const PopularMoviesSlide = () => {
         // dotListClass="custom-dot-list-style"
         // itemClass="carousel-item-padding-40-px"
       >
-        {data.results.map((movie, index) => (
+        {datas.map((movie, index) => (
           <MovieCard movie={movie} key={index} />
         ))}
       </Carousel>
