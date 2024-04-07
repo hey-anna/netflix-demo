@@ -4,6 +4,8 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: -1;
+  position: relative;
 }
 
 /* 배너 배경 그라데이션 */
@@ -14,16 +16,34 @@
   left: 0;
   height: 56vh;
   width: 100%;
+  z-index: -1;
 }
 
 /* 배너 텍스트 */
 .banner-text-area {
-  width: 36%;
+  width: 50%;
   dispaly: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
   padding: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.banner-text-area h1,
+.banner-text-area p {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 2;
+}
+
+.banner-text-area p {
+  /* background-color: rgba(0, 0, 0, 0.5);  */
+  /* border-radius: 10px;  */
+  /* padding: 10px;  */
+  /* max-width: 80%; */
+  /* margin: 10px auto; */
 }
 
 /* 배너 텍스트 > 야래 모든 아이템 */
