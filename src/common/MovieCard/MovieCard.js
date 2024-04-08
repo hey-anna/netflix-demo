@@ -1,11 +1,13 @@
+// common 공통
+
 import React from "react";
 import { Badge } from "react-bootstrap";
 import "./MovieCard.style.css";
 import { Box, Stack, Typography } from "@mui/material";
 // import votebox from "src/assets/images/votebox.svg";
-import votebox from "../../../../assets/images/votebox.svg";
-import popularityperson from "../../../../assets/images/popularityperson.svg";
-import adult19 from "../../../../assets/images/adult19.svg";
+import votebox from "../../assets/images/votebox.svg";
+import popularityperson from "../../assets/images/popularityperson.svg";
+import adult19 from "../../assets/images/adult19.svg";
 // 장르 ID와 이름 매핑
 const genreMappings = {
   28: "Action",
@@ -35,6 +37,13 @@ const MovieCard = ({ movie }) => {
   // if (!datas || datas.length === 0) {
   //   return <div>No data found.</div>;
   // }
+
+  // Stack style
+  const StackSX = {
+    display: "flex",
+    flexDirection: "row",
+  };
+
   return (
     <div
       style={{
@@ -68,11 +77,11 @@ const MovieCard = ({ movie }) => {
           </Badge>
         ))} */}
         <div>
-          <Stack gap={1} sx={{ display: "flex", flexDirection: "row" }}>
+          <Stack gap={1} sx={StackSX}>
             <img src={votebox} alt="" />
             <Typography>{movie.vote_average}</Typography>
           </Stack>
-          <Stack gap={1} sx={{ display: "flex", flexDirection: "row" }}>
+          <Stack gap={1} sx={StackSX}>
             <img src={popularityperson} alt="" />
             <Typography>{movie.popularity}</Typography>
           </Stack>
