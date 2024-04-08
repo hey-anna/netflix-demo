@@ -1,12 +1,6 @@
 import React from "react";
-import { Box, Stack, Typography, Container } from "@mui/material";
-import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
+import { usePopularMoviesQuery } from "../../../../hooks/useMovieQueries";
 import { Alert } from "react-bootstrap";
-import Carousel from "react-multi-carousel";
-// import "react-multi-carousel/lib/styles.css";
-import MovieCard from "../../../../common/MovieCard/MovieCard";
-import "./PopularMoviesSlide.style.css";
-// import MovieSlider from "../../common/MovieSlider/MovieSlider";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { responsive } from "../../../../constants/responsive";
 
@@ -47,7 +41,7 @@ const PopularMoviesSlide = () => {
   return (
     <>
       <MovieSlider
-        title="Popular Movies"
+        title="Top Popular Movies"
         movies={datas}
         responsive={responsive}
       />

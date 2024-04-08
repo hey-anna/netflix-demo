@@ -1,5 +1,5 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
+import { usePopularMoviesQuery } from "../../../../hooks/useMovieQueries";
 import Alert from "react-bootstrap/Alert";
 import "./Banner.style.css";
 import { Container } from "@mui/material";
