@@ -51,6 +51,7 @@ const MovieCard = ({ movie }) => {
           "url(" +
           `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${movie?.poster_path}` +
           ")",
+        // backgroundSize: "100%",
       }}
       className="movie-card"
     >

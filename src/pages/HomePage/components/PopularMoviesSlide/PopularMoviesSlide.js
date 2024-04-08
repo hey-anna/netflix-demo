@@ -1,17 +1,34 @@
-import React from "react";
+// import React from "react";
+import React, { useState, useEffect } from "react";
 import { usePopularMoviesQuery } from "../../../../hooks/useMovieQueries";
 import { Alert } from "react-bootstrap";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { responsive } from "../../../../constants/responsive";
 
 const PopularMoviesSlide = () => {
-  const { data, isLoding, isError, error } = usePopularMoviesQuery();
+  const { data, isLoading, isError, error } = usePopularMoviesQuery();
+  const [deviceType, setDeviceType] = useState("desktop");
 
-  if (isLoding) {
+  useEffect(() => {
+    const updateDeviceType = () => {
+      const width = window.innerWidth;
+      if (width > 1024) setDeviceType("desktop");
+      else if (width > 464 && width <= 1024) setDeviceType("tablet");
+      else setDeviceType("mobile");
+    };
+
+    window.addEventListener("resize", updateDeviceType);
+    updateDeviceType();
+
+    return () => window.removeEventListener("resize", updateDeviceType);
+  }, []);
+
+  // 로딩 및 예외처리
+  if (isLoading) {
     return <h1>Loding....</h1>;
   }
   if (isError) {
-    return <Alert varient="danger">{error.message}</Alert>;
+    return <Alert variant="danger">{error.message}</Alert>;
   }
 
   // // 컨스턴트?,, 따로 컴포넌트로 뽑아서 분리 - 재사용 가능성이 있다면
@@ -44,6 +61,9 @@ const PopularMoviesSlide = () => {
         title="Top Popular Movies"
         movies={datas}
         responsive={responsive}
+        autoPlay={true}
+        deviceType={deviceType}
+        // autoPlay={this.props.deviceType !== "mobile" ? true : false}
       />
     </>
   );

@@ -2,3 +2,18 @@
   overflow: hidden;
   height: 440px;
 }
+
+@media (max-width: 464px) {
+  /* .movie-card {
+    width: 100%;
+    height: auto;
+  } */
+  /* .carousel-container {
+    height: auto;
+  } */
+
+  /* .react-multi-carousel-item {
+    width: 100%;
+    height: auto;
+  } */
+}

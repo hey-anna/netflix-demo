@@ -11,7 +11,8 @@ import MovieCard from "../MovieCard/MovieCard";
 //css
 import "./MovieSlider.style.css";
 
-const MovieSlider = ({ title, movies, responsive }) => {
+const MovieSlider = ({ title, movies, responsive, autoPlay, deviceType }) => {
+  console.log("## deviceType:", deviceType, "## autoPlay:", autoPlay);
   return (
     <>
       <Container maxWidth="lg">
@@ -29,6 +30,10 @@ const MovieSlider = ({ title, movies, responsive }) => {
         // responsive={responsive}
         // ssr={true} // means to render carousel on server-side.
         // infinite={true}
+        // autoPlay={autoPlay}
+
+        autoPlay={deviceType !== "mobile" ? autoPlay : false}
+        // autoPlay={true}
         // autoPlay={this.props.deviceType !== "mobile" ? true : false}
         // autoPlaySpeed={1000}
         // keyBoardControl={true}
@@ -37,17 +42,21 @@ const MovieSlider = ({ title, movies, responsive }) => {
         // containerClass="carousel-container"
         // removeArrowOnDeviceType={["tablet", "mobile"]}
         // deviceType={this.props.deviceType}
+        deviceType={deviceType}
         // dotListClass="custom-dot-list-style"
         // itemClass="carousel-item-padding-40-px"
       >
         {movies.map((movie, index) => (
-          <MovieCard movie={movie} key={index} />
+          <MovieCard
+            movie={movie}
+            key={index}
+            // className="bg-gray-500 h-[100px]"
+          />
         ))}
         {/* {datas.map((movie, index) => (
     <MovieCard movie={movie} key={index} />
   ))} */}
       </Carousel>
-      ;
     </>
   );
 };
