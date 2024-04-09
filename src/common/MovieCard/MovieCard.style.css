@@ -31,7 +31,42 @@
   z-index: 2;
 }
 
-@media screen and (max-width: 464px) {
+/* MovieCard.style.css 내에 추가 */
+@media (max-width: 464px) {
+  .react-multi-carousel-list .react-multi-carousel-track li {
+    /* width: 100% important; */
+    /* width: 100% !important; */
+  }
+  .react-multi-carousel-item {
+    width: 100%;
+    /* width: 100vw; */
+  }
+
+  /* .react-multi-carousel-item, */
+  .movie-card {
+    width: 100%;
+    background-size: cover;
+    /* width: 100vw; */
+    /* height: auto; */
+  }
+  .carousel-container {
+    /* height: auto; */
+  }
+
+  /* .movie-card {
+    width: 100%;
+    height: auto;
+  }
+  .carousel-container {
+    height: auto;
+  } */
+  .movie-card:hover {
+    transform: none;
+    /* z-index: 2; */
+  }
+}
+
+/* @media screen and (max-width: 464px) {
   .react-multi-carousel-list
     .react-multi-carousel-track
     .react-multi-carousel-item {
@@ -42,4 +77,4 @@
     background-size: cover;
     width: 100vw;
   }
-}
+} */
