@@ -8,42 +8,56 @@ import { Box, Stack, Typography } from "@mui/material";
 import votebox from "../../assets/images/votebox.svg";
 import popularityperson from "../../assets/images/popularityperson.svg";
 import adult19 from "../../assets/images/adult19.svg";
+import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 // 장르 ID와 이름 매핑
-const genreMappings = {
-  28: "Action",
-  12: "Adventure",
-  16: "Animation",
-  35: "Comedy",
-  80: "Crime",
-  99: "Documentary",
-  18: "Drama",
-  10751: "Family",
-  14: "Fantasy",
-  36: "History",
-  27: "Horror",
-  10402: "Music",
-  9648: "Mystery",
-  10749: "Romance",
-  878: "Science Fiction",
-  10770: "TV Movie",
-  53: "Thriller",
-  10752: "War",
-  37: "Western",
-};
+// const genreMappings = {
+//   28: "Action",
+//   12: "Adventure",
+//   16: "Animation",
+//   35: "Comedy",
+//   80: "Crime",
+//   99: "Documentary",
+//   18: "Drama",
+//   10751: "Family",
+//   14: "Fantasy",
+//   36: "History",
+//   27: "Horror",
+//   10402: "Music",
+//   9648: "Mystery",
+//   10749: "Romance",
+//   878: "Science Fiction",
+//   10770: "TV Movie",
+//   53: "Thriller",
+//   10752: "War",
+//   37: "Western",
+// };
 
 // PopularMoviesSlide 카드에서 movie를 받아올거고
 const MovieCard = ({ movie }) => {
+  const { data: genreData } = useMovieGenreQuery();
   //     const datas = data?.results;
   // if (!datas || datas.length === 0) {
   //   return <div>No data found.</div>;
   // }
+
+  const showGenre = (genreIdList) => {
+    if (!genreData) return [];
+    const genreNameList = genreIdList.map((id) => {
+      const genreObj = genreData.find((genre) => genre.id === id);
+      return genreObj.name;
+    });
+
+    return genreNameList;
+  };
 
   // Stack style
   const StackSX = {
     display: "flex",
     flexDirection: "row",
   };
+  // 이름을 재정의하겠다.
 
+  console.log("##genreData", genreData);
   return (
     <div
       style={{
@@ -61,11 +75,17 @@ const MovieCard = ({ movie }) => {
           // className="badge-container"
           style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}
         >
-          {movie.genre_ids.map((id) => (
+          {showGenre(movie.genre_ids).map((genre, index) => (
+            <Badge bg="danger" key={index}>
+              {/* {genreMappings[id]} */}
+              {genre}
+            </Badge>
+          ))}
+          {/* {showGenre()movie.genre_ids.map((id) => (
             <Badge bg="danger" key={id}>
               {genreMappings[id]}
             </Badge>
-          ))}
+          ))} */}
         </div>
         {/* {movie.genre_ids.map((id) => (
           <Box key={id} sx={{ marginRight: 1, display: "inline-block" }}>

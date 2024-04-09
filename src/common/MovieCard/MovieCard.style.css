@@ -31,18 +31,15 @@
   z-index: 2;
 }
 
-/* MovieCard.style.css 내에 추가 */
-
-@media (max-width: 464px) {
-  /* .movie-card {
-    width: 100%;
-    height: auto;
+@media screen and (max-width: 464px) {
+  .react-multi-carousel-list
+    .react-multi-carousel-track
+    .react-multi-carousel-item {
+    width: 100% !important;
   }
-  .carousel-container {
-    height: auto;
-  } */
-  .movie-card:hover {
-    transform: none;
-    /* z-index: 2; */
+  .movie-card {
+    width: 100%;
+    background-size: cover;
+    width: 100vw;
   }
 }
