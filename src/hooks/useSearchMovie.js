@@ -8,16 +8,16 @@ import api from "../utils/api";
 
 //
 
-const fetchSearchMovie = ({ keyword }) => {
+const fetchSearchMovie = ({ keyword, page }) => {
   return keyword
-    ? api.get(`/search/movie?query=${keyword}`)
-    : api.get(`/movie/popular`);
+    ? api.get(`/search/movie?query=${keyword}&page=${page}`)
+    : api.get(`/movie/popular?page=${page}`);
 };
 
-export const useSearchMovieQuery = ({ keyword }) => {
+export const useSearchMovieQuery = ({ keyword, page }) => {
   return useQuery({
-    queryKey: ["movie-search", keyword],
-    queryFn: () => fetchSearchMovie({ keyword }), //키워드도 같이 보내는데, fetchSearchMovie함수가 키워드를 받아서 리턴을 하는데 키워드에 따라서 키워드가있다면 어떤것을 get 없다하면 다른것을 get
+    queryKey: ["movie-search", { keyword, page }],
+    queryFn: () => fetchSearchMovie({ keyword, page }), //키워드도 같이 보내는데, fetchSearchMovie함수가 키워드를 받아서 리턴을 하는데 키워드에 따라서 키워드가있다면 어떤것을 get 없다하면 다른것을 get
     select: (result) => result.data, // result가 오면 result.data을 리턴을 해주세요 // 지저분한것 없이 필요한것 부르기
   });
 };
