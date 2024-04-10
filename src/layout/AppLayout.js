@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Outlet, Link } from "react-router-dom"; // 리액트 V6  도입 // 리액트 안에 있는 자손들을 가져오게 해주는
+import { Outlet, Link, useNavigate } from "react-router-dom"; // 리액트 V6  도입 // 리액트 안에 있는 자손들을 가져오게 해주는
 import hlogo from "../assets/images/hlogo.svg";
 // import netlogo from "../assets/images/netlogo.svg";
 // import logo from "../assets/images/logo.svg";
 
 const AppLayout = () => {
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+
+  // 이게 form이기 때문에 form의 경우 항상 e.preventDefault() 리프레쉬 막게 선언하기
+  // keyword의 url을 바꿔줘야 한다.
+  // e.preventDefault();
+
+  const searchByKeyword = (e) => {
+    // url을 바꿔주기 // url을 바꿔줌으로써 다음페이지에 url값을 받아서 읽어올거에요
+    // movies/키워드 << 채워진채로 들어오게 된다.
+    e.preventDefault();
+    navigate(`/movies?q=${keyword}`);
+    // setKeyword(""); // 검색 종료 후 셋키워드 비워주고 싶을 시 추가
+  };
   return (
     <>
       <Navbar
@@ -48,14 +62,22 @@ const AppLayout = () => {
                 movies
               </Link>
             </Nav>
-            <Form className="d-flex">
+            <Form
+              className="d-flex"
+              onSubmit={searchByKeyword}
+              // onSubmit을 호출해주겠다
+            >
               <Form.Control
                 type="search"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                value={keyword} // 이키워드를 입력할때마다 세팅해주는 친구, onChange
+                onChange={(e) => setKeyword(e.target.value)} // 안에서 변화가 일어날때 마다 셋키워드
               />
-              <Button variant="outline-danger">Search</Button>
+              <Button variant="outline-danger" type="submit">
+                Search
+              </Button>
             </Form>
           </Navbar.Collapse>
         </Container>
