@@ -1,0 +1,8 @@
+.MuiFormControl-root {
+  width: 90%;
+}
+@media (max-width: 991px) {
+  .MuiFormControl-root {
+    width: 100%;
+  }
+}

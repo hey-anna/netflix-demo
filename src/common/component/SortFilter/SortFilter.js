@@ -8,7 +8,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-
+import "./SortFilter.style.css";
 const SortFilter = ({ onSortChange, sortOption, options }) => {
   //   const [sortOption, setSortOption] = useState("recent");
 
@@ -24,7 +24,9 @@ const SortFilter = ({ onSortChange, sortOption, options }) => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "20px 0",
+        // padding: "20px 0",
+        mt: 3,
+        mb: 3,
         width: "100%",
       }}
     >
@@ -32,10 +34,10 @@ const SortFilter = ({ onSortChange, sortOption, options }) => {
       {/* 전체 데이터 건수: {dataItems.length} 건 */}
       {/* </Typography> */}
       <FormControl
-        size="small"
+        // size="small"
         sx={{
           minWidth: 240,
-          width: "90%",
+          // width: "90%",
           borderColor: "white",
           color: "white",
           "& .MuiSvgIcon-root": { color: "white" },

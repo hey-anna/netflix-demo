@@ -139,10 +139,15 @@ const MoviePage = () => {
             onSortChange={handleSortChange}
             // options={sortOptions}
             options={[
-              { value: "popular", label: "인기순" },
-              { value: "recommended", label: "추천순" },
-              { value: "upcoming", label: "상영 예정" },
+              { value: "popular", label: "POPULAR" },
+              { value: "recommended", label: "RECOMMENDED" },
+              { value: "upcoming", label: "UPCOMING" },
             ]}
+            // options={[
+            //   { value: "popular", label: "인기순" },
+            //   { value: "recommended", label: "추천순" },
+            //   { value: "upcoming", label: "상영 예정" },
+            // ]}
           />
           <SortFilter
             sortOption={selectedGenre}
@@ -159,7 +164,7 @@ const MoviePage = () => {
               </Col>
             ))} */}
             {filteredMovies.map((movie, index) => (
-              <Col key={index} lg={3} md={4} sm={6} xs={12}>
+              <Col key={index} lg={3} md={4} sm={6} xs={12} className="p-3">
                 <MovieCard movie={movie} />
               </Col>
             ))}
