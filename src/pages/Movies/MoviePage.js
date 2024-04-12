@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
 import {
   usePopularMoviesQuery,
@@ -30,9 +30,13 @@ import SortFilter from "../../common/component/SortFilter/SortFilter";
 // 페이지네이션 클릭할때마다 page 바꿔주기
 // page 값이 바뀔때 마다 useSearchMovie에 page까지 넣어서 fetch
 const MoviePage = () => {
+  // navigate
+  const navigate = useNavigate();
+
+  // useState
   const [sortOption, setSortOption] = useState("popular");
   const [selectedGenre, setSelectedGenre] = useState("all");
-  const [genreOption, setGenreOption] = useState([]);
+  // const [genreOption, setGenreOption] = useState([]);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useSearchParams();
   const keyword = query?.get("q");
@@ -60,11 +64,21 @@ const MoviePage = () => {
     setPage(1);
   };
 
-  const genreOptions = genres.map((genre) => ({
-    value: genre.id,
-    label: genre.name,
-  }));
-  genreOptions.unshift({ value: "all", label: "All Genres" });
+  // const genreOptions = genres?.map((genre) => ({
+  //   value: genre.id,
+  //   label: genre.name,
+  // }));
+  // genreOptions.unshift({ value: "all", label: "All Genres" });
+
+  const genreOptions = [
+    { value: "all", label: "All Genres" },
+    ...(genres
+      ? genres.map((genre) => ({
+          value: genre.id,
+          label: genre.name,
+        }))
+      : []),
+  ];
 
   // const filteredMovies = data?.results.filter(movie => {
   //   return selectedGenre === "all" || movie.genre_ids.includes(Number(selectedGenre));
@@ -85,7 +99,8 @@ const MoviePage = () => {
     return filteredMovies;
   };
 
-  const filteredMovies = getFilteredMovies(); // 필터링된 영화 목록을 계산합니다.
+  const filteredMovies = getFilteredMovies(); // 필터링된 영화 목록 계산
+
   const handlePageClick = ({ selected }) => {
     // console.log("###page", page);
     setPage(selected + 1);
@@ -100,6 +115,7 @@ const MoviePage = () => {
 
   // console.log("### data", data);
   // 로딩 및 예외처리
+
   if (isLoading) {
     return <h1>Loding....</h1>;
   }
