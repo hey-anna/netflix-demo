@@ -6,10 +6,11 @@ import {
   useRatedMoviesQuery,
   useUpcomingMoviesQuery,
 } from "../../hooks/useMovieQueries";
+import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 import { Alert, Col, Container, Row } from "react-bootstrap";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
-import SortFilter from "../../common/component/SortFilter";
+import SortFilter from "../../common/component/SortFilter/SortFilter";
 
 // import MovoeCard
 
@@ -28,8 +29,10 @@ import SortFilter from "../../common/component/SortFilter";
 // page state 만들기
 // 페이지네이션 클릭할때마다 page 바꿔주기
 // page 값이 바뀔때 마다 useSearchMovie에 page까지 넣어서 fetch
-const MoviePage = ({}) => {
+const MoviePage = () => {
   const [sortOption, setSortOption] = useState("popular");
+  const [selectedGenre, setSelectedGenre] = useState("all");
+  const [genreOption, setGenreOption] = useState([]);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useSearchParams();
   const keyword = query?.get("q");
@@ -38,6 +41,9 @@ const MoviePage = ({}) => {
   const ratedQuery = useRatedMoviesQuery({ page });
   const upcomingQuery = useUpcomingMoviesQuery({ page });
   const searchQuery = useSearchMovieQuery({ keyword, page });
+  const genreQuery = useMovieGenreQuery();
+
+  const { data: genres } = genreQuery;
 
   const currentQuery = keyword
     ? searchQuery
@@ -53,41 +59,45 @@ const MoviePage = ({}) => {
     setSortOption(newSortOption);
     setPage(1);
   };
+
+  const genreOptions = genres.map((genre) => ({
+    value: genre.id,
+    label: genre.name,
+  }));
+  genreOptions.unshift({ value: "all", label: "All Genres" });
+
+  // const filteredMovies = data?.results.filter(movie => {
+  //   return selectedGenre === "all" || movie.genre_ids.includes(Number(selectedGenre));
+  // });
+  // 검색 결과, 인기/추천/상영 예정 영화 목록, 장르 데이터를 사용하여 필터링된 영화 목록을 계산하는 함수
+  const getFilteredMovies = () => {
+    if (!data || !genres) return [];
+
+    let filteredMovies = data.results;
+
+    // 장르 필터링 적용: 선택된 장르가 'all'이 아닌 경우, 해당 장르를 포함하는 영화만 필터링
+    if (selectedGenre !== "all") {
+      filteredMovies = filteredMovies.filter((movie) =>
+        movie.genre_ids.includes(parseInt(selectedGenre))
+      );
+    }
+
+    return filteredMovies;
+  };
+
+  const filteredMovies = getFilteredMovies(); // 필터링된 영화 목록을 계산합니다.
   const handlePageClick = ({ selected }) => {
     // console.log("###page", page);
     setPage(selected + 1);
   };
 
-  // const sortOptions = [
-  //   { value: "recent", label: "등록일자순" },
-  //   { value: "recommended", label: "추천순" },
-  //   { value: "cheapest", label: "인기순" },
-  //   // 여기에 더 많은 옵션을 추가할 수 있습니다.
-  // ];
-  // const queryResult = (() => {
-  //   switch (sortOption) {
-  //     case "popular":
-  //       return popularQuery;
-  //     case "recommended":
-  //       return ratedQuery;
-  //     case "upcoming":
-  //       return upcomingQuery;
-  //     default:
-  //       return popularQuery;
-  //   }
-  // })();
-
-  // const { data, isLoading, isError, error } = queryResult;
-
-  // const { data, isLoading, isError, error } = useSearchMovieQuery({
-  //   keyword,
-  //   page,
-  // });
+  // 인기 추천 상영예정 콘솔 확인
   useEffect(() => {
     if (!isLoading && data) {
       console.log(`${sortOption} 데이터:`, data);
     }
   }, [data, isLoading, sortOption]);
+
   // console.log("### data", data);
   // 로딩 및 예외처리
   if (isLoading) {
@@ -118,11 +128,22 @@ const MoviePage = ({}) => {
               { value: "upcoming", label: "상영 예정" },
             ]}
           />
+          <SortFilter
+            sortOption={selectedGenre}
+            onSortChange={setSelectedGenre}
+            // options={sortOptions}
+            options={genreOptions}
+          />
         </Col>
         <Col lg={8} xs={12}>
           <Row>
-            {data?.results.map((movie, index) => (
-              <Col key={index} lg={3} xs={12}>
+            {/* {data?.results.map((movie, index) => (
+              <Col key={index} lg={3} md={4} sm={6} xs={12}>
+                <MovieCard movie={movie} />
+              </Col>
+            ))} */}
+            {filteredMovies.map((movie, index) => (
+              <Col key={index} lg={3} md={4} sm={6} xs={12}>
                 <MovieCard movie={movie} />
               </Col>
             ))}

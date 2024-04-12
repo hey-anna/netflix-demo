@@ -22,7 +22,7 @@ const AppLayout = () => {
     // movies/키워드 << 채워진채로 들어오게 된다.
     e.preventDefault();
     navigate(`/movies?q=${keyword}`);
-    // setKeyword(""); // 검색 종료 후 셋키워드 비워주고 싶을 시 추가
+    setKeyword(""); // 검색 종료 후 셋키워드 비워주고 싶을 시 추가
   };
   return (
     <>
