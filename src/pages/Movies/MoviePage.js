@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
+import {
+  usePopularMoviesQuery,
+  useRatedMoviesQuery,
+  useUpcomingMoviesQuery,
+} from "../../hooks/useMovieQueries";
 import { Alert, Col, Container, Row } from "react-bootstrap";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
+import SortFilter from "../../common/component/SortFilter";
 
 // import MovoeCard
 
@@ -23,36 +29,100 @@ import ReactPaginate from "react-paginate";
 // 페이지네이션 클릭할때마다 page 바꿔주기
 // page 값이 바뀔때 마다 useSearchMovie에 page까지 넣어서 fetch
 const MoviePage = ({}) => {
-  const [query, setQuery] = useSearchParams();
+  const [sortOption, setSortOption] = useState("popular");
   const [page, setPage] = useState(1);
-  const keyword = query.get("q");
+  const [query, setQuery] = useSearchParams();
+  const keyword = query?.get("q");
 
-  const { data, isLoading, isError, error } = useSearchMovieQuery({
-    keyword,
-    page,
-  });
+  const popularQuery = usePopularMoviesQuery({ page });
+  const ratedQuery = useRatedMoviesQuery({ page });
+  const upcomingQuery = useUpcomingMoviesQuery({ page });
+  const searchQuery = useSearchMovieQuery({ keyword, page });
+
+  const currentQuery = keyword
+    ? searchQuery
+    : {
+        popular: popularQuery,
+        recommended: ratedQuery,
+        upcoming: upcomingQuery,
+      }[sortOption];
+
+  const { data, isLoading, isError, error } = currentQuery;
+
+  const handleSortChange = (newSortOption) => {
+    setSortOption(newSortOption);
+    setPage(1);
+  };
   const handlePageClick = ({ selected }) => {
     // console.log("###page", page);
     setPage(selected + 1);
   };
-  console.log("### data", data);
+
+  // const sortOptions = [
+  //   { value: "recent", label: "등록일자순" },
+  //   { value: "recommended", label: "추천순" },
+  //   { value: "cheapest", label: "인기순" },
+  //   // 여기에 더 많은 옵션을 추가할 수 있습니다.
+  // ];
+  // const queryResult = (() => {
+  //   switch (sortOption) {
+  //     case "popular":
+  //       return popularQuery;
+  //     case "recommended":
+  //       return ratedQuery;
+  //     case "upcoming":
+  //       return upcomingQuery;
+  //     default:
+  //       return popularQuery;
+  //   }
+  // })();
+
+  // const { data, isLoading, isError, error } = queryResult;
+
+  // const { data, isLoading, isError, error } = useSearchMovieQuery({
+  //   keyword,
+  //   page,
+  // });
+  useEffect(() => {
+    if (!isLoading && data) {
+      console.log(`${sortOption} 데이터:`, data);
+    }
+  }, [data, isLoading, sortOption]);
+  // console.log("### data", data);
   // 로딩 및 예외처리
   if (isLoading) {
     return <h1>Loding....</h1>;
   }
-  if (isError) {
-    return <Alert variant="danger">{error.message}</Alert>;
-  }
+  if (isError || !data)
+    return (
+      <Alert variant="danger">{error?.message || "An error occurred"}</Alert>
+    );
+  // if (isError) {
+  //   return <Alert variant="danger">{error.message}</Alert>;
+  // }
+  // if (!data || data.results.length === 0) {
+  //   return <div>No data found.</div>;
+  // }
+
   return (
     <Container>
       <Row>
         <Col lg={4} xs={12}>
-          필터
+          <SortFilter
+            sortOption={sortOption}
+            onSortChange={handleSortChange}
+            // options={sortOptions}
+            options={[
+              { value: "popular", label: "인기순" },
+              { value: "recommended", label: "추천순" },
+              { value: "upcoming", label: "상영 예정" },
+            ]}
+          />
         </Col>
         <Col lg={8} xs={12}>
           <Row>
             {data?.results.map((movie, index) => (
-              <Col key={index} lg={4} xs={12}>
+              <Col key={index} lg={3} xs={12}>
                 <MovieCard movie={movie} />
               </Col>
             ))}

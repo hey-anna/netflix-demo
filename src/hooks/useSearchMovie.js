@@ -8,7 +8,7 @@ import api from "../utils/api";
 
 //
 
-const fetchSearchMovie = ({ keyword, page }) => {
+const fetchSearchMovie = ({ keyword = "", page = 1 }) => {
   return keyword
     ? api.get(`/search/movie?query=${keyword}&page=${page}`)
     : api.get(`/movie/popular?page=${page}`);
