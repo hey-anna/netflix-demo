@@ -1,18 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../utils/api";
 
-const fetchDetailsEtc = async ({ queryKey }) => {
-  const [, { movieId }] = queryKey;
-  const apiKey = "YOUR_API_KEY"; // API 키를 설정하세요
-  const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`;
-  const response = await api.get(url);
-  return response.data; // 데이터 반환
+// const fetchDetailsEtc = async ({ queryKey }) => {
+//   const [, { movieId }] = queryKey;
+//   const apiKey = "YOUR_API_KEY"; // API 키를 설정하세요
+//   const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`;
+//   const response = await api.get(url);
+//   return response.data; // 데이터 반환
+// };
+const fetchDetailsEtc = async ({ movieId }) => {
+  return api.get(`/movie/${movieId}`);
 };
 
 // 영화 상세 정보를 가져오는 custom hook
 export const useMovieDetailsEtcQuery = ({ movieId }) => {
   return useQuery({
-    queryKey: ["movie-details-etc", { movieId }],
+    queryKey: ["movie-details-etc", movieId],
     queryFn: fetchDetailsEtc,
     // 데이터 포맷 선택적 가공 (선택적)
     select: (data) => ({
@@ -46,6 +49,20 @@ export const useRecommendMoviesQuery = ({ movieId }) => {
   return useQuery({
     queryKey: ["movie-recommend", movieId],
     queryFn: () => fetchRecommendMovies({ movieId }),
+    // select: (results) => results.data,
+    select: (result) => result.data,
+    // select: (result) => result.results.data,
+  });
+};
+
+const fetchVideosMovies = ({ movieId }) => {
+  return api.get(`/movie/${movieId}/videos`);
+};
+
+export const useVideosMoviesQuery = ({ movieId }) => {
+  return useQuery({
+    queryKey: ["movie-videos", movieId],
+    queryFn: () => fetchVideosMovies({ movieId }),
     // select: (results) => results.data,
     select: (result) => result.data,
     // select: (result) => result.results.data,

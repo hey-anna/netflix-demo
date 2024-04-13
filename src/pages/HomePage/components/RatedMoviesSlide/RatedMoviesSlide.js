@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useRatedMoviesQuery } from "../../../../hooks/useMovieQueries";
 import { Alert } from "react-bootstrap";
+
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 // import { responsive } from "../../../../constants/responsive";
 import { responsive } from "../../../../constants/responsive";
 
 const RatedMoviesSlide = () => {
   const { data, isLoading, isError, error } = useRatedMoviesQuery();
-
+  console.log("@@@ data", data);
   const [deviceType, setDeviceType] = useState("desktop");
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const RatedMoviesSlide = () => {
   if (!datas || datas.length === 0) {
     return <div>No data found.</div>;
   }
+  console.log("@@@ datas", datas);
   return (
     <>
       <MovieSlider

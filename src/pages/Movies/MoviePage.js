@@ -53,7 +53,7 @@ const MoviePage = () => {
     ? searchQuery
     : {
         popular: popularQuery,
-        top_rated: ratedQuery,
+        toprated: ratedQuery,
         upcoming: upcomingQuery,
       }[sortOption];
 
@@ -144,7 +144,7 @@ const MoviePage = () => {
             // options={sortOptions}
             options={[
               { value: "popular", label: "POPULAR" },
-              { value: "top_rated", label: "TOPRATED" },
+              { value: "toprated", label: "TOPRATED" },
               { value: "upcoming", label: "UPCOMING" },
             ]}
             // options={[

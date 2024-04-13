@@ -1,6 +1,6 @@
 // common 공통
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Badge } from "react-bootstrap";
 import "./MovieCard.style.css";
 import { Box, Stack, Typography } from "@mui/material";
@@ -40,22 +40,41 @@ const MovieCard = ({ movie, onClick }) => {
   //   return <div>No data found.</div>;
   // }
 
-  const showGenre = (genreIdList) => {
-    if (!genreData) return [];
-    const genreNameList = genreIdList.map((id) => {
-      const genreObj = genreData.find((genre) => genre.id === id);
-      return genreObj.name;
-    });
+  // 장르 데이터를 객체 형태로 변환하여 빠르게 접근할 수 있도록 함
+  // const genreMap = useMemo(() => {
+  //   return genreData
+  //     ? genreData.reduce((map, genre) => {
+  //         map[genre.id] = genre.name;
+  //         return map;
+  //       }, {})
+  //     : {};
+  // }, [genreData]);
 
-    return genreNameList;
+  // const showGenre = (genreIdList) => {
+  //   return genreIdList.map((id) => genreMap[id] || "Unknown");
+  // };
+  const showGenre = (genreIdList) => {
+    if (!genreData) return []; // 데이터가 없으면 빈 배열을 반환
+    return genreIdList.map((id) => {
+      const genreObj = genreData.find((genre) => genre.id === id);
+      return genreObj ? genreObj.name : "Unknown"; // 찾은 장르가 없을 경우 "Unknown" 반환
+    });
   };
+  // const showGenre = (genreIdList) => {
+  //   if (!genreData) return [];
+  //   const genreNameList = genreIdList.map((id) => {
+  //     const genreObj = genreData.find((genre) => genre.id === id);
+  //     return genreObj.name;
+  //   });
+
+  //   return genreNameList;
+  // };
 
   // Stack style
   const StackSX = {
     display: "flex",
     flexDirection: "row",
   };
-  // 이름을 재정의하겠다.
 
   console.log("##genreData", genreData);
   return (

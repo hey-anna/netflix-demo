@@ -1,26 +1,29 @@
-import React from "react";
+import { useState } from "react";
 import { useParams, useEffect } from "react-router-dom";
 import { Badge, Row, Col } from "react-bootstrap";
 import { Typography, Box, Stack, Container } from "@mui/material";
 // import { useMovieDetailsQuery } from "../../hooks/useMovieDetailsQuery";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
-import {
-  usePopularMoviesQuery,
-  // useRecommendMoviesQuery,
-} from "../../hooks/useMovieQueries";
+import { usePopularMoviesQuery } from "../../hooks/useMovieQueries";
 import {
   useMovieDetailsEtcQuery,
   useMovieReviewsQuery,
   useRecommendMoviesQuery,
+  useVideosMoviesQuery,
 } from "../../hooks/useMovieDetailsEtcQy";
 import ReviewBox from "./components/reviews/ReviewBox";
 import votebox from "../../assets/images/votebox.svg";
 import popularityperson from "../../assets/images/popularityperson.svg";
+import youtube from "../../assets/images/youtube.svg";
+import { VideoModal } from "./components/video/VideoModal";
+
 import adult19 from "../../assets/images/adult19.svg";
 import "./MovieDetailPage.style.css";
 import RecommendMovieCard from "./components/recommend/RecommendMovieCard";
+
 const MovieDetailPage = () => {
   const { movieId } = useParams();
+  const [open, setOpen] = useState(false);
   console.log("### movieId", movieId);
   // const { data: movie } = useMovieDetailsQuery({ movieId });
 
@@ -30,10 +33,18 @@ const MovieDetailPage = () => {
   const { data: details } = useMovieDetailsEtcQuery({ movieId });
   const { data: reviews } = useMovieReviewsQuery({ movieId });
   const { data: recommends } = useRecommendMoviesQuery({ movieId });
+  const { data: Videos } = useVideosMoviesQuery({ movieId });
+
+  const videoId = Videos?.results[0]?.key;
+  const videoTitle = Videos?.results[0]?.name;
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   console.log("@@@ details", details);
   console.log("@@@ reviews", reviews);
   console.log("@@@ recommends", recommends);
+  console.log("@@@ Videos", Videos);
   // console.log("Movie Details:", data);
   const showGenre = (genreIdList) => {
     if (!genreData) return [];
@@ -63,7 +74,7 @@ const MovieDetailPage = () => {
   // const detail = details?.results.find(
   //   (detail) => detail.id.toString() === movieId
   // );
-
+  console.log("@@@@ movies", movies);
   const movie = movies?.results?.find(
     (movie) => movie.id.toString() === movieId
   );
@@ -95,6 +106,13 @@ const MovieDetailPage = () => {
     display: "flex",
     flexDirection: "row",
     mb: 1,
+  };
+
+  const StackUtubeSX = {
+    display: "flex",
+    flexDirection: "row",
+    mb: 2,
+    cursor: "pointer",
   };
 
   // console.log("##genreData", genreData);
@@ -185,6 +203,23 @@ const MovieDetailPage = () => {
                 </Typography>
               </Stack>
             </Stack>
+            <Stack gap={1} sx={StackUtubeSX} onClick={handleOpen}>
+              <img
+                src={youtube}
+                alt="Play Video"
+                style={{ width: "38px", height: "auto" }}
+              />
+              <Typography
+                variant="h5"
+                sx={{
+                  alignItems: "center",
+                  display: "flex",
+                  textDecoration: "underline",
+                }}
+              >
+                {movie?.title} Preview
+              </Typography>
+            </Stack>
             <Box
               sx={{
                 border: "1px solid #ccc",
@@ -247,6 +282,12 @@ const MovieDetailPage = () => {
         <ReviewBox reviews={reviews?.results || []} />
         <RecommendMovieCard recommends={recommends?.results || []} />
       </Container>
+      <VideoModal
+        open={open}
+        handleClose={handleClose}
+        videoId={videoId}
+        videoTitle={videoTitle}
+      />
     </>
   );
 };

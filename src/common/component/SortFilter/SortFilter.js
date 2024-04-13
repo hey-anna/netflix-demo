@@ -1,5 +1,5 @@
-// import React from 'react'
-import { useState } from "react";
+import React from "react";
+// import { useState } from "react";
 import {
   FormControl,
   InputLabel,
@@ -66,7 +66,7 @@ const SortFilter = ({ onSortChange, sortOption, options }) => {
             </MenuItem>
           ))}
           {/* <MenuItem value={"recent"}>등록일자순</MenuItem>
-          <MenuItem value={"top_rated"}>추천순</MenuItem>
+          <MenuItem value={"toprated"}>추천순</MenuItem>
           <MenuItem value={"cheapest"}>인기순</MenuItem> */}
         </Select>
       </FormControl>

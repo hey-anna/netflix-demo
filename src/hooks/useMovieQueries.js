@@ -11,10 +11,6 @@ const fetchUpcomingMovies = () => {
   return api.get(`/movie/upcoming`);
 };
 
-// const fetchRecommendMovies = () => {
-//   return api.get(`/movies/get-movie-recommendations`);
-// };
-
 // 함수로 만들어 놓으면 가져다 쓰기 편함.
 export const usePopularMoviesQuery = () => {
   return useQuery({
@@ -30,7 +26,7 @@ export const usePopularMoviesQuery = () => {
 
 export const useRatedMoviesQuery = () => {
   return useQuery({
-    queryKey: ["movie-top_rated"],
+    queryKey: ["movie-toprated"],
     queryFn: fetchRatedMovies,
     select: (result) => result.data,
   });
@@ -43,11 +39,3 @@ export const useUpcomingMoviesQuery = () => {
     select: (result) => result.data,
   });
 };
-
-// export const useRecommendMoviesQuery = () => {
-//   return useQuery({
-//     queryKey: ["movie-recommend"],
-//     queryFn: fetchRecommendMovies,
-//     // select: (result) => result.data,
-//   });
-// };

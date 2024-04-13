@@ -3,6 +3,9 @@
 import React from "react";
 import { Box, Stack, Typography, Container } from "@mui/material";
 // import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
+// import Carousel from "react-multi-carousel";
+// import "react-multi-carousel/lib/styles.css";
+
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 // import MovieCard from "../../../../common/MovieCard/MovieCard";
