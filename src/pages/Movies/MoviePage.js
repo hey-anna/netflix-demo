@@ -8,9 +8,12 @@ import {
 } from "../../hooks/useMovieQueries";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 import { Alert, Col, Container, Row } from "react-bootstrap";
+import { IconButton, Stack, Typography } from "@mui/material";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
 import SortFilter from "../../common/component/SortFilter/SortFilter";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 // import MovoeCard
 
@@ -36,6 +39,7 @@ const MoviePage = () => {
   // useState
   const [sortOption, setSortOption] = useState("popular");
   const [selectedGenre, setSelectedGenre] = useState("all");
+  const [sortDirection, setSortDirection] = useState("desc");
   // const [genreOption, setGenreOption] = useState([]);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useSearchParams();
@@ -80,6 +84,10 @@ const MoviePage = () => {
       : []),
   ];
 
+  const toggleSortDirection = () => {
+    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+  };
+
   // const filteredMovies = data?.results.filter(movie => {
   //   return selectedGenre === "all" || movie.genre_ids.includes(Number(selectedGenre));
   // });
@@ -95,6 +103,15 @@ const MoviePage = () => {
         movie.genre_ids.includes(parseInt(selectedGenre))
       );
     }
+
+    // Sort by popularity
+    filteredMovies.sort((a, b) => {
+      if (sortDirection === "asc") {
+        return a.popularity - b.popularity;
+      } else {
+        return b.popularity - a.popularity;
+      }
+    });
 
     return filteredMovies;
   };
@@ -159,6 +176,21 @@ const MoviePage = () => {
             // options={sortOptions}
             options={genreOptions}
           />
+          {/* <Button onClick={toggleSortDirection}>
+            Sort by Popularity {sortDirection === "asc" ? "↑" : "↓"}
+          </Button> */}
+          <IconButton onClick={toggleSortDirection} sx={{ color: "white" }}>
+            <Stack gap={1}>
+              <Typography variant="h5"> Sort by Popularity</Typography>
+            </Stack>
+            <Stack>
+              {sortDirection === "asc" ? (
+                <ArrowDownwardIcon fontSize="large" />
+              ) : (
+                <ArrowUpwardIcon fontSize="large" />
+              )}
+            </Stack>
+          </IconButton>
         </Col>
         <Col lg={8} xs={12}>
           <Row>
