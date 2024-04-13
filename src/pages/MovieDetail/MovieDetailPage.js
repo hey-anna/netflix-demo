@@ -122,7 +122,7 @@ const MovieDetailPage = () => {
   if (!movie) return <div>영화 정보를 찾을 수 없습니다.</div>;
   return (
     <>
-      <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }}>
+      <Container maxWidth="lg" sx={{ mt: 2, mb: 2, pb: 8 }}>
         <Row>
           <Col lg={4} sm={12} className="responsive-row">
             <div
@@ -217,7 +217,7 @@ const MovieDetailPage = () => {
                   textDecoration: "underline",
                 }}
               >
-                {movie?.title} Preview
+                {movie?.title} &gt; &gt; review
               </Typography>
             </Stack>
             <Box

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -11,9 +12,10 @@ import { Stack } from "@mui/material";
 // import  from "../assets/images/logo.svg";
 import "./AppLayout.style.css";
 
-const AppLayout = () => {
+const AppLayout = ({ setSortOption }) => {
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
+  const queryClient = useQueryClient(); // 초기화 메소드 쿼리함수
 
   // 이게 form이기 때문에 form의 경우 항상 e.preventDefault() 리프레쉬 막게 선언하기
   // keyword의 url을 바꿔줘야 한다.
@@ -56,9 +58,11 @@ const AppLayout = () => {
     if (newKeyword) {
       // 검색어가 있을 경우, '/movies' 경로로 이동하면서 검색 쿼리를 추가
       navigate(`/movies?q=${newKeyword}`, { replace: true });
-    } else {
+    } else if (!newKeyword) {
+      setSortOption("popular"); // sortOption을 인기순으로 설정
       // 검색어가 없을 경우, '/movies'로 이동
       navigate("/movies", { replace: true });
+      queryClient.invalidateQueries("popularMovies");
     }
   };
 
@@ -131,7 +135,16 @@ const AppLayout = () => {
                   Search
                 </Button>
                 {/* {keyword && ( */}
-                <Button variant="danger" onClick={() => navigate("/movies")}>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    setKeyword("");
+                    // setSortOption("popular");
+                    setSortOption = { setSortOption };
+                    queryClient.invalidateQueries("popularMovies");
+                    navigate("/movies", { replace: true });
+                  }}
+                >
                   All
                 </Button>
                 {/* )} */}
