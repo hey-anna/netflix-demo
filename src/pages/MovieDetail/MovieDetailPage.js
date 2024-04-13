@@ -1,11 +1,15 @@
 import React from "react";
-import { Badge, Container, Row, Col } from "react-bootstrap";
-import { Typography, Box, Stack } from "@mui/material";
+import { useParams, useEffect } from "react-router-dom";
+import { Badge, Row, Col } from "react-bootstrap";
+import { Typography, Box, Stack, Container } from "@mui/material";
 // import { useMovieDetailsQuery } from "../../hooks/useMovieDetailsQuery";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
-import { useParams, useEffect } from "react-router-dom";
 import { usePopularMoviesQuery } from "../../hooks/useMovieQueries";
-import { useMovieDetailsEtcQuery } from "../../hooks/useMovieDetailsEtcQy";
+import {
+  useMovieDetailsEtcQuery,
+  useMovieReviewsQuery,
+} from "../../hooks/useMovieDetailsEtcQy";
+import ReviewBox from "./components/reviews/ReviewBox";
 import votebox from "../../assets/images/votebox.svg";
 import popularityperson from "../../assets/images/popularityperson.svg";
 import adult19 from "../../assets/images/adult19.svg";
@@ -19,8 +23,10 @@ const MovieDetailPage = () => {
   const { data: genreData } = useMovieGenreQuery();
   // const { data: movies } = usePopularMoviesQuery();
   const { data: details } = useMovieDetailsEtcQuery({ movieId });
+  const { data: reviews } = useMovieReviewsQuery({ movieId });
 
   console.log("@@@ details", details);
+  console.log("@@@ reviews", reviews);
   // console.log("Movie Details:", data);
   const showGenre = (genreIdList) => {
     if (!genreData) return [];
@@ -90,7 +96,7 @@ const MovieDetailPage = () => {
   if (isError) return <div>오류 발생: {error.message}</div>;
   if (!movie) return <div>영화 정보를 찾을 수 없습니다.</div>;
   return (
-    <Container className="mt-2">
+    <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }}>
       <Row>
         <Col lg={4} sm={12} className="responsive-row">
           <div
@@ -227,6 +233,8 @@ const MovieDetailPage = () => {
           </Stack>
         </Col>
       </Row>
+      {/* <ReviewBox /> */}
+      <ReviewBox reviews={reviews?.results || []} />
     </Container>
   );
 };

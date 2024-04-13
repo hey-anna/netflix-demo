@@ -24,6 +24,20 @@ export const useMovieDetailsEtcQuery = ({ movieId }) => {
   });
 };
 
+const fetchMovieReviews = ({ movieId }) => {
+  return api.get(`/movie/${movieId}/reviews`);
+};
+
+export const useMovieReviewsQuery = ({ movieId }) => {
+  return useQuery({
+    queryKey: ["movie-reviews", movieId],
+    queryFn: () => fetchMovieReviews({ movieId }),
+    // select: (results) => results.data,
+    select: (result) => result.data,
+    // select: (result) => result.results.data,
+  });
+};
+
 // // const fetchDetailsEtc = ({ movieId }) => {
 // //   const { data } = api.get(`/movies/${movieId}`);
 // //   console.log("#### API Response:", data);
