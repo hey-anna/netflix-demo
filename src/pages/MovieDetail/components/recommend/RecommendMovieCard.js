@@ -34,7 +34,7 @@ export default function RecommendMovieCard({ recommends }) {
         {recommends.map((recommend, index) => (
           <Card
             key={recommend.id}
-            className="card"
+            className="recard"
             sx={{
               display: "flex",
               position: "relative",
@@ -43,7 +43,7 @@ export default function RecommendMovieCard({ recommends }) {
             <Box sx={{ display: "flex" }}>
               <CardContent
                 sx={{ position: "absolute" }}
-                className="movie-card overlay"
+                className="removie-card overlay"
               >
                 <Typography
                   component="div"
