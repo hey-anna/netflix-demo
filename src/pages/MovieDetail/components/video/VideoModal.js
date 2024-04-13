@@ -17,41 +17,35 @@ export const VideoModal = ({ open, handleClose, videoId, videoTitle }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="lg">
-      <DialogTitle>
-        {videoTitle}{" "}
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+      <IconButton
+        aria-label="close"
+        onClick={handleClose}
+        sx={{
+          position: "absolute",
+          right: 8,
+          top: 8,
+          zIndex: 1100,
+          color: (theme) => theme.palette.grey[500],
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
+      <DialogTitle
+        sx={{
+          width: "640px",
+          flexShrink: 0,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }}
+      >
+        {videoTitle}
       </DialogTitle>
       <DialogContent>
-        <Dialog open={open} onClose={handleClose} maxWidth="lg">
-          <DialogTitle>Watch Video</DialogTitle>
-          <DialogContent>
-            <YouTube
-              videoId={videoId}
-              opts={videoOpts}
-              onReady={(event) => event.target.pauseVideo()}
-            />
-          </DialogContent>
-        </Dialog>
-        {/* <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/your_video_id"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe> */}
+        <YouTube
+          videoId={videoId}
+          opts={videoOpts}
+          onReady={(event) => event.target.pauseVideo()}
+        />
       </DialogContent>
     </Dialog>
   );
