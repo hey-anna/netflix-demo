@@ -8,7 +8,7 @@ import {
 } from "../../hooks/useMovieQueries";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 import { Alert, Col, Container, Row } from "react-bootstrap";
-import { IconButton, Stack, Typography } from "@mui/material";
+import { IconButton, Stack, Typography, Pagination } from "@mui/material";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
 import SortFilter from "../../common/component/SortFilter/SortFilter";
@@ -132,11 +132,11 @@ const MoviePage = () => {
   const validPageCount = data && data.total_pages > 0;
 
   // 인기 추천 상영예정 콘솔 확인
-  useEffect(() => {
-    if (!isLoading && data) {
-      console.log(`${sortOption} 데이터:`, data);
-    }
-  }, [data, isLoading, sortOption]);
+  // useEffect(() => {
+  //   if (!isLoading && data) {
+  //     console.log(`${sortOption} 데이터:`, data);
+  //   }
+  // }, [data, isLoading, sortOption]);
 
   // console.log("### data", data);
   // 로딩 및 예외처리
@@ -204,7 +204,7 @@ const MoviePage = () => {
               </Col>
             ))} */}
             {filteredMovies.map((movie, index) => (
-              <Col key={index} lg={3} md={4} sm={6} xs={12} className="p-4">
+              <Col key={index} lg={3} md={4} sm={6} className="p-4">
                 <MovieCard
                   onClick={() => handleMovieClick(movie.id)}
                   movie={movie}
@@ -243,8 +243,19 @@ const MoviePage = () => {
                 activeClassName="active"
                 renderOnZeroPageCount={null}
                 forcePage={page - 1} // 0부터 카운트 ?1일때 2라고 생각 2일때 3이라고 생각 그래서 -1 처리
+                btnRange={5}
+                pageRange={12}
               />
             )}
+            {/* {validPageCount && (
+              <Pagination
+                onPageChange={handlePageClick}
+                count={data?.total_pages}
+                defaultPage={6}
+                siblingCount={0}
+                boundaryCount={2}
+              />
+            )} */}
           </>
         </Col>
       </Row>

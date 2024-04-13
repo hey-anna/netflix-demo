@@ -2,6 +2,11 @@
   display: flex;
   list-style: none;
   justify-content: center;
+  /* margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem; */
 }
 
 .page-link {
@@ -28,4 +33,19 @@
 }
 .page-link:hover {
   background-color: #eee;
+}
+
+@media (max-width: 575px) {
+  /* .movie-card {
+    width: 100%;
+    height: auto;
+  } */
+  /* .carousel-container {
+    height: auto;
+  } */
+
+  /* .react-multi-carousel-item {
+    width: 100%;
+    height: auto;
+  } */
 }
