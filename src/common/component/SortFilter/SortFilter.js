@@ -9,6 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import "./SortFilter.style.css";
+import { hover } from "@testing-library/user-event/dist/hover";
 const SortFilter = ({ onSortChange, sortOption, options }) => {
   //   const [sortOption, setSortOption] = useState("recent");
 
@@ -51,13 +52,29 @@ const SortFilter = ({ onSortChange, sortOption, options }) => {
           value={sortOption}
           //   label="정렬 옵션"
           //   placeholder="정렬 옵션"
+
           onChange={handleSortChange}
           sx={{
             color: "white",
             borderColor: "white",
+            "&:hover": {
+              borderColor: "#fff !important",
+              background: "#ccc",
+              border: "1px solid #ccc",
+              color: "#000",
+            },
             "&:before": { borderColor: "white" },
             "&:after": { borderColor: "white" },
             "& .MuiSvgIcon-root": { color: "white" },
+            "&:hover:not(.Mui-disabled):before": {
+              borderColor: "white",
+            },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "white",
+            },
+            "& .MuiInputBase-root": {
+              borderColor: "white",
+            },
           }}
         >
           {options.map((option) => (

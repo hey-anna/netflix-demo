@@ -1,0 +1,31 @@
+.pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+}
+
+.page-link {
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  /* color: #337ab7;
+  color: black; */
+  color: #999 !important;
+}
+
+.page-item.active .page-link {
+  /* background-color: #337ab7; */
+  background-color: #f00 !important;
+  border-color: #f00 !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.page-item li {
+  background-color: red;
+  border-color: red;
+}
+.page-link:hover {
+  background-color: #eee;
+}

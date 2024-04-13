@@ -14,6 +14,7 @@ import ReactPaginate from "react-paginate";
 import SortFilter from "../../common/component/SortFilter/SortFilter";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import "./MoviePage.style.css";
 
 // import MovoeCard
 
@@ -127,6 +128,9 @@ const MoviePage = () => {
     setPage(selected + 1);
   };
 
+  // 데이터가 있고, 결과 페이지 수가 0보다 클 때만 페이지네이션 보여줌
+  const validPageCount = data && data.total_pages > 0;
+
   // 인기 추천 상영예정 콘솔 확인
   useEffect(() => {
     if (!isLoading && data) {
@@ -218,27 +222,29 @@ const MoviePage = () => {
               previousLabel="< previous"
               renderOnZeroPageCount={null}
             /> */}
-            <ReactPaginate
-              nextLabel="next >"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={3}
-              marginPagesDisplayed={2}
-              pageCount={data?.total_pages} // 전체페이지
-              previousLabel="< previous"
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              previousLinkClassName="page-link"
-              nextClassName="page-item"
-              nextLinkClassName="page-link"
-              breakLabel="..."
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              containerClassName="pagination"
-              activeClassName="active"
-              renderOnZeroPageCount={null}
-              forcePage={page - 1} // 0부터 카운트 ?1일때 2라고 생각 2일때 3이라고 생각 그래서 -1 처리
-            />
+            {validPageCount && (
+              <ReactPaginate
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={data?.total_pages} // 전체페이지
+                previousLabel="< previous"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+                renderOnZeroPageCount={null}
+                forcePage={page - 1} // 0부터 카운트 ?1일때 2라고 생각 2일때 3이라고 생각 그래서 -1 처리
+              />
+            )}
           </>
         </Col>
       </Row>

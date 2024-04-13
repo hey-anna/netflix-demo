@@ -9,6 +9,7 @@ import hlogo from "../assets/images/hlogo.svg";
 import { Stack } from "@mui/material";
 // import netlogo from "../assets/images/netlogo.svg";
 // import  from "../assets/images/logo.svg";
+import "./AppLayout.style.css";
 
 const AppLayout = () => {
   const [keyword, setKeyword] = useState("");
@@ -66,7 +67,7 @@ const AppLayout = () => {
       <Navbar
         expand="lg"
         variant="dark"
-        className="bg-dark p-0"
+        className="bg-dark p-0 navbar"
         // sx={{ height: "56px" }}
       >
         <Container
@@ -108,7 +109,7 @@ const AppLayout = () => {
               <Form.Control
                 type="search"
                 placeholder="Search"
-                className="me-2"
+                className="me-2 form-control"
                 aria-label="Search"
                 value={keyword} // 이키워드를 입력할때마다 세팅해주는 친구, onChange
                 onChange={(e) => setKeyword(e.target.value)} // 안에서 변화가 일어날때 마다 셋키워드
@@ -122,7 +123,11 @@ const AppLayout = () => {
                     Clear
                   </Button>
                 )}
-                <Button variant="outline-danger" type="submit">
+                <Button
+                  variant="outline-danger"
+                  type="submit"
+                  // className="button"
+                >
                   Search
                 </Button>
                 {/* {keyword && ( */}
