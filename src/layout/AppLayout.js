@@ -49,15 +49,16 @@ const AppLayout = ({ setSortOption }) => {
   // };
 
   const updateSearchQuery = (newKeyword) => {
+    // sortOption을 인기순으로 설정
     if (newKeyword) {
       // 검색어가 있을 경우, '/movies' 경로로 이동하면서 검색 쿼리를 추가
       navigate(`/movies?q=${newKeyword}`, { replace: true });
-    }
-    if (!newKeyword) {
-      setSortOption("popular"); // sortOption을 인기순으로 설정
+    } else if (!newKeyword) {
       // 검색어가 없을 경우, '/movies'로 이동
       navigate("/movies", { replace: true });
       queryClient.invalidateQueries("popularMovies");
+    } else {
+      setSortOption("popular");
     }
   };
   const searchByKeyword = (e) => {
@@ -65,6 +66,7 @@ const AppLayout = ({ setSortOption }) => {
     // 검색 조건을 URL로 업데이트하는 로직
     updateSearchQuery(keyword);
   };
+
   return (
     <>
       <Navbar
@@ -134,21 +136,16 @@ const AppLayout = ({ setSortOption }) => {
                   Search
                 </Button>
                 {/* {keyword && ( */}
-                <Button
+                <Button variant="danger" onClick={() => navigate("/movies")}>
+                  {/* <Button
                   variant="danger"
                   onClick={() => {
                     setKeyword("");
                     setSortOption("popular");
                     queryClient.invalidateQueries("popularMovies");
                     navigate("/movies", { replace: true });
-
-                    // setKeyword("");
-                    // setSortOption("popular");
-                    // // setSortOption = { setSortOption };
-                    // queryClient.invalidateQueries("popularMovies");
-                    // navigate("/movies", { replace: true });
                   }}
-                >
+                > */}
                   All
                 </Button>
                 {/* )} */}
