@@ -38,6 +38,20 @@ export const useMovieReviewsQuery = ({ movieId }) => {
   });
 };
 
+const fetchRecommendMovies = ({ movieId }) => {
+  return api.get(`/movie/${movieId}/recommendations`);
+};
+
+export const useRecommendMoviesQuery = ({ movieId }) => {
+  return useQuery({
+    queryKey: ["movie-recommend", movieId],
+    queryFn: () => fetchRecommendMovies({ movieId }),
+    // select: (results) => results.data,
+    select: (result) => result.data,
+    // select: (result) => result.results.data,
+  });
+};
+
 // // const fetchDetailsEtc = ({ movieId }) => {
 // //   const { data } = api.get(`/movies/${movieId}`);
 // //   console.log("#### API Response:", data);

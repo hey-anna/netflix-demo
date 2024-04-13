@@ -1,8 +1,8 @@
 .movie-card {
-  width: 220px;
-  height: 330px;
-  background-size: cover;
-  cursor: pointer;
+  /* width: 220px;
+  height: 330px; */
+  /* background-size: cover; */
+  /* cursor: pointer; */
   transition: 0.5s;
 }
 
@@ -17,7 +17,7 @@
   color: white;
   font-weight: bold;
   overflow-wrap: break-word;
-  padding: 16px;
+  /* padding: 16px; */
 }
 
 /* // 카드 호버시 - 표시 */

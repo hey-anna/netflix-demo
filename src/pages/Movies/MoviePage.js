@@ -53,7 +53,7 @@ const MoviePage = () => {
     ? searchQuery
     : {
         popular: popularQuery,
-        recommended: ratedQuery,
+        top_rated: ratedQuery,
         upcoming: upcomingQuery,
       }[sortOption];
 
@@ -144,12 +144,12 @@ const MoviePage = () => {
             // options={sortOptions}
             options={[
               { value: "popular", label: "POPULAR" },
-              { value: "recommended", label: "RECOMMENDED" },
+              { value: "top_rated", label: "TOPRATED" },
               { value: "upcoming", label: "UPCOMING" },
             ]}
             // options={[
             //   { value: "popular", label: "인기순" },
-            //   { value: "recommended", label: "추천순" },
+            //   { value: "top_rated", label: "평점순" },
             //   { value: "upcoming", label: "상영 예정" },
             // ]}
           />
