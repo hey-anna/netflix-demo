@@ -101,6 +101,10 @@ const MoviePage = () => {
 
   const filteredMovies = getFilteredMovies(); // 필터링된 영화 목록 계산
 
+  const handleMovieClick = (movieId) => {
+    navigate(`/movies/${movieId}`);
+  };
+
   const handlePageClick = ({ selected }) => {
     // console.log("###page", page);
     setPage(selected + 1);
@@ -164,8 +168,11 @@ const MoviePage = () => {
               </Col>
             ))} */}
             {filteredMovies.map((movie, index) => (
-              <Col key={index} lg={3} md={4} sm={6} xs={12} className="p-3">
-                <MovieCard movie={movie} />
+              <Col key={index} lg={3} md={4} sm={6} xs={12} className="p-4">
+                <MovieCard
+                  onClick={() => handleMovieClick(movie.id)}
+                  movie={movie}
+                />
               </Col>
             ))}
           </Row>

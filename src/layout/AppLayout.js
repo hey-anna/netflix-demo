@@ -8,7 +8,7 @@ import { Outlet, Link, useNavigate } from "react-router-dom"; // 리액트 V6  �
 import hlogo from "../assets/images/hlogo.svg";
 import { Stack } from "@mui/material";
 // import netlogo from "../assets/images/netlogo.svg";
-// import logo from "../assets/images/logo.svg";
+// import  from "../assets/images/logo.svg";
 
 const AppLayout = () => {
   const [keyword, setKeyword] = useState("");
@@ -79,6 +79,7 @@ const AppLayout = () => {
           <Navbar.Brand href="#">
             <img
               src={hlogo}
+              onClick={() => navigate("/")}
               width="100"
               height="30"
               className="d-inline-block align-top"

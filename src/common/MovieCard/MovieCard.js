@@ -33,7 +33,7 @@ import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 // };
 
 // PopularMoviesSlide 카드에서 movie를 받아올거고
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, onClick }) => {
   const { data: genreData } = useMovieGenreQuery();
   //     const datas = data?.results;
   // if (!datas || datas.length === 0) {
@@ -60,6 +60,7 @@ const MovieCard = ({ movie }) => {
   console.log("##genreData", genreData);
   return (
     <div
+      onClick={onClick}
       style={{
         backgroundImage:
           "url(" +
