@@ -217,7 +217,7 @@ const MovieDetailPage = () => {
                   textDecoration: "underline",
                 }}
               >
-                {movie?.title} &gt; &gt; review
+                {movie?.title} &gt; &gt; Preview
               </Typography>
             </Stack>
             <Box
